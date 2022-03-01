@@ -17,6 +17,7 @@ namespace FileSplitter
         public MainForm()
         {
             InitializeComponent();
+            tabControl1.SelectTab(1);
             fragmentSizeUnitComboBox.SelectedIndex = 1;
         }
 
