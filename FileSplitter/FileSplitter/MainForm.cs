@@ -68,22 +68,20 @@ namespace FileSplitter
             MessageBox.Show("File split complete!");
         }
 
-        private void ScanFile(string filename)
+        private void ScanFile(string path)
         {
-            Regex regex = new Regex(@"(?:\\(.+?))+?_\d+?.sff$");
+            Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
+            string filename = path.Split('\\').Last();
             Match m = regex.Match(filename);
             if (m.Success)
             {
-                string base_filename = m.Groups[1].Value;
-                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(filename)))
-                {
-                    if (file.Contains(base_filename) && file.EndsWith(".sff"))
+                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path)))
+                    if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
                         fragmentListBox.Items.Add(file);
-                }
             }
             else
             {
-                fragmentListBox.Items.Add(filename);
+                fragmentListBox.Items.Add(path);
             }
             joinInstructionLabel.Visible = fragmentListBox.Items.Count == 0;
             mergeButton.Enabled = !joinInstructionLabel.Visible && File.Exists(mergeFilePathTextBox.Text);
@@ -92,20 +90,7 @@ namespace FileSplitter
         private void button2_Click(object sender, EventArgs e)
         {
             if (mergeOpenFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                //Regex regex = new Regex(@"(?:\\(.+?))+?_\d+?.sff$");
-                //Match m = regex.Match(mergeOpenFileDialog.FileName);
-                //if (m.Success)
-                //{
-                //    string base_filename = m.Groups[1].Value;
-                //    foreach (string file in Directory.GetFiles(Path.GetDirectoryName(mergeOpenFileDialog.FileName)))
-                //    {
-                //        if (file.Contains(base_filename) && file.EndsWith(".sff"))
-                //            fragmentListBox.Items.Add(file);
-                //    }
-                //}
                 ScanFile(mergeOpenFileDialog.FileName);
-            }
         }
 
         private void button5_Click(object sender, EventArgs e)
