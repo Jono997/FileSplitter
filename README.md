@@ -16,6 +16,6 @@ After that, select where to save the file and click the `Merge` button.
 * Encrypting files/fragment payloads (both symmetric and asymmetric)
 
 ### Other planned changes
-* Make Join tab the default
-* Make fragment series detecting more robust
-* Downgrade to the lowest .NET Framework version possible
+* Make Join tab the default [Done]
+* Make fragment series detecting more robust [Done]
+* Downgrade to the lowest .NET Framework version possible [Abandoned]
