@@ -1,0 +1,11 @@
+﻿File extension: .sff (split file fragment)
+
+0x00: Version number (this is technically a little endian unsigned int, but this will only matter if the version number exceeds 254)
+
+VERSION 0:
+0x01 - 0x08: Series ID
+0x09 - 0x0C: This fragment in the series
+0x0D - 0x10: Total number of fragments
+0x11 - 0x50: SHA 512 digest of this fragment
+0x51 - 0x90: SHA 512 digest of the complete file
+0x91 - EOF: Fragment payload
