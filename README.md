@@ -10,7 +10,7 @@ To join a series of fragment files together, switch to the Join tab and drag one
 After that, select where to save the file and click the `Merge` button.
 
 ## Planned features
-* An option to specify where to save a fragment series
+* An option to specify where to save a fragment series [Done]
 * An option to split a file into a set number of fragments
 * Usability from the command line
 * Encrypting files/fragment payloads (both symmetric and asymmetric)
