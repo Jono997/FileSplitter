@@ -17,7 +17,7 @@ namespace FileSplitter
         public MainForm()
         {
             InitializeComponent();
-            //tabControl1.SelectTab(1);
+            tabControl1.SelectTab(1);
             fragmentSizeUnitComboBox.SelectedIndex = 1;
         }
 
@@ -29,16 +29,27 @@ namespace FileSplitter
 
         private void splitFileTextBox_TextChanged(object sender, EventArgs e)
         {
+            splitButton.Enabled = true;
+
             if (File.Exists(splitFileTextBox.Text))
             {
                 splitFileTextBox.ForeColor = Color.Black;
-                splitButton.Enabled = true;
+                if (splitFilePathTextBox.Text == "")
+                    splitFilePathTextBox.Text = $"{splitFileTextBox.Text}_split";
             }
             else
             {
                 splitFileTextBox.ForeColor = Color.Red;
                 splitButton.Enabled = false;
             }
+
+            if (File.Exists(splitFilePathTextBox.Text))
+            {
+                splitFilePathTextBox.ForeColor = Color.Red;
+                splitButton.Enabled = false;
+            }
+            else
+                splitFilePathTextBox.ForeColor = Color.Black;
         }
 
         private void splitFileTextBox_DragEnter(object sender, DragEventArgs e)
@@ -74,15 +85,11 @@ namespace FileSplitter
             string filename = path.Split('\\').Last();
             Match m = regex.Match(filename);
             if (m.Success)
-            {
                 foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path)))
                     if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
                         fragmentListBox.Items.Add(file);
-            }
             else
-            {
                 fragmentListBox.Items.Add(path);
-            }
             joinInstructionLabel.Visible = fragmentListBox.Items.Count == 0;
             mergeButton.Enabled = !joinInstructionLabel.Visible && File.Exists(mergeFilePathTextBox.Text);
         }

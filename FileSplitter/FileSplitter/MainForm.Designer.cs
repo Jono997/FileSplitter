@@ -291,6 +291,7 @@
             this.splitFilePathTextBox.Name = "splitFilePathTextBox";
             this.splitFilePathTextBox.Size = new System.Drawing.Size(309, 20);
             this.splitFilePathTextBox.TabIndex = 9;
+            this.splitFilePathTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
             // 
             // button3
             // 
