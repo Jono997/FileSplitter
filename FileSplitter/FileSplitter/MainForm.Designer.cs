@@ -47,10 +47,11 @@
             this.fragmentListBox = new System.Windows.Forms.ListBox();
             this.splitOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mergeOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.mergeSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.label3 = new System.Windows.Forms.Label();
             this.splitFilePathTextBox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.splitFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fragmentSizeNumericUpDown)).BeginInit();
@@ -300,6 +301,7 @@
             this.button3.TabIndex = 10;
             this.button3.Text = "...";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainForm
             // 
@@ -338,12 +340,13 @@
         private System.Windows.Forms.OpenFileDialog mergeOpenFileDialog;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox mergeFilePathTextBox;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog mergeSaveFileDialog;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label joinInstructionLabel;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox splitFilePathTextBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FolderBrowserDialog splitFolderBrowserDialog;
     }
 }
 

@@ -17,7 +17,7 @@ namespace FileSplitter
         public MainForm()
         {
             InitializeComponent();
-            tabControl1.SelectTab(1);
+            //tabControl1.SelectTab(1);
             fragmentSizeUnitComboBox.SelectedIndex = 1;
         }
 
@@ -128,8 +128,8 @@ namespace FileSplitter
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                mergeFilePathTextBox.Text = saveFileDialog1.FileName;
+            if (mergeSaveFileDialog.ShowDialog() == DialogResult.OK)
+                mergeFilePathTextBox.Text = mergeSaveFileDialog.FileName;
         }
 
         private void mergeFilePathTextBox_TextChanged(object sender, EventArgs e)
@@ -149,6 +149,16 @@ namespace FileSplitter
             byte[] file = Fragment.GetFileFromSeries(series);
             File.WriteAllBytes(mergeFilePathTextBox.Text, file);
             MessageBox.Show("File merge complete");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (splitFolderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                string folder = splitFolderBrowserDialog.SelectedPath;
+                if (Directory.GetFileSystemEntries(folder).Length == 0 || MessageBox.Show("It's reccommended you save a split file to an empty folder, but this folder has contents in it.\nSave to here anyway?", "Not empty folder", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    splitFilePathTextBox.Text = folder;
+            }
         }
     }
 }
