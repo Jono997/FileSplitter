@@ -74,8 +74,10 @@ namespace FileSplitter
                 fragment_size *= 1024;
             Fragment[] series = Fragment.MakeSeries(file, fragment_size);
 
+            Directory.CreateDirectory(splitFilePathTextBox.Text);
+            string fragment_base_filename = Path.GetFileName(splitFileTextBox.Text);
             for (int i = 0; i < series.Length; i++)
-                File.WriteAllBytes($"{splitFileTextBox.Text}_{i}.sff", series[i].Serialise());
+                File.WriteAllBytes($"{splitFilePathTextBox.Text}\\{fragment_base_filename}_{i}.sff", series[i].Serialise());
             MessageBox.Show("File split complete!");
         }
 
