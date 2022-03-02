@@ -35,7 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.splitButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.splitFileTextBox = new System.Windows.Forms.TextBox();
+            this.splitInputFileTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.joinInstructionLabel = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             this.mergeOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mergeSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.label3 = new System.Windows.Forms.Label();
-            this.splitFilePathTextBox = new System.Windows.Forms.TextBox();
+            this.splitOutputPathTextBox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.splitFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
@@ -72,14 +72,14 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.splitFilePathTextBox);
+            this.tabPage1.Controls.Add(this.splitOutputPathTextBox);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.fragmentSizeUnitComboBox);
             this.tabPage1.Controls.Add(this.fragmentSizeNumericUpDown);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.splitButton);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.splitFileTextBox);
+            this.tabPage1.Controls.Add(this.splitInputFileTextBox);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -113,10 +113,20 @@
             0,
             0,
             0});
+            this.fragmentSizeNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.fragmentSizeNumericUpDown.Name = "fragmentSizeNumericUpDown";
             this.fragmentSizeNumericUpDown.Size = new System.Drawing.Size(290, 20);
             this.fragmentSizeNumericUpDown.TabIndex = 5;
             this.fragmentSizeNumericUpDown.ThousandsSeparator = true;
+            this.fragmentSizeNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -151,18 +161,18 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // splitFileTextBox
+            // splitInputFileTextBox
             // 
-            this.splitFileTextBox.AllowDrop = true;
-            this.splitFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitInputFileTextBox.AllowDrop = true;
+            this.splitInputFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitFileTextBox.Location = new System.Drawing.Point(40, 8);
-            this.splitFileTextBox.Name = "splitFileTextBox";
-            this.splitFileTextBox.Size = new System.Drawing.Size(358, 20);
-            this.splitFileTextBox.TabIndex = 1;
-            this.splitFileTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
-            this.splitFileTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitFileTextBox_DragDrop);
-            this.splitFileTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitFileTextBox_DragEnter);
+            this.splitInputFileTextBox.Location = new System.Drawing.Point(40, 8);
+            this.splitInputFileTextBox.Name = "splitInputFileTextBox";
+            this.splitInputFileTextBox.Size = new System.Drawing.Size(358, 20);
+            this.splitInputFileTextBox.TabIndex = 1;
+            this.splitInputFileTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
+            this.splitInputFileTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitFileTextBox_DragDrop);
+            this.splitInputFileTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitFileTextBox_DragEnter);
             // 
             // label1
             // 
@@ -283,15 +293,15 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Save location:";
             // 
-            // splitFilePathTextBox
+            // splitOutputPathTextBox
             // 
-            this.splitFilePathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitOutputPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitFilePathTextBox.Location = new System.Drawing.Point(89, 140);
-            this.splitFilePathTextBox.Name = "splitFilePathTextBox";
-            this.splitFilePathTextBox.Size = new System.Drawing.Size(309, 20);
-            this.splitFilePathTextBox.TabIndex = 9;
-            this.splitFilePathTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
+            this.splitOutputPathTextBox.Location = new System.Drawing.Point(89, 140);
+            this.splitOutputPathTextBox.Name = "splitOutputPathTextBox";
+            this.splitOutputPathTextBox.Size = new System.Drawing.Size(309, 20);
+            this.splitOutputPathTextBox.TabIndex = 9;
+            this.splitOutputPathTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
             // 
             // button3
             // 
@@ -327,7 +337,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox splitFileTextBox;
+        private System.Windows.Forms.TextBox splitInputFileTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.OpenFileDialog splitOpenFileDialog;
@@ -345,7 +355,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label joinInstructionLabel;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox splitFilePathTextBox;
+        private System.Windows.Forms.TextBox splitOutputPathTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FolderBrowserDialog splitFolderBrowserDialog;
     }

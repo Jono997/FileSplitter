@@ -24,32 +24,32 @@ namespace FileSplitter
         private void button1_Click(object sender, EventArgs e)
         {
             if (splitOpenFileDialog.ShowDialog() == DialogResult.OK)
-                splitFileTextBox.Text = splitOpenFileDialog.FileName;
+                splitInputFileTextBox.Text = splitOpenFileDialog.FileName;
         }
 
         private void splitFileTextBox_TextChanged(object sender, EventArgs e)
         {
             splitButton.Enabled = true;
 
-            if (File.Exists(splitFileTextBox.Text))
+            if (File.Exists(splitInputFileTextBox.Text))
             {
-                splitFileTextBox.ForeColor = Color.Black;
-                if (splitFilePathTextBox.Text == "")
-                    splitFilePathTextBox.Text = $"{splitFileTextBox.Text}_split";
+                splitInputFileTextBox.ForeColor = Color.Black;
+                if (splitOutputPathTextBox.Text == "")
+                    splitOutputPathTextBox.Text = $"{splitInputFileTextBox.Text}_split";
             }
             else
             {
-                splitFileTextBox.ForeColor = Color.Red;
+                splitInputFileTextBox.ForeColor = Color.Red;
                 splitButton.Enabled = false;
             }
 
-            if (File.Exists(splitFilePathTextBox.Text))
+            if (File.Exists(splitOutputPathTextBox.Text))
             {
-                splitFilePathTextBox.ForeColor = Color.Red;
+                splitOutputPathTextBox.ForeColor = Color.Red;
                 splitButton.Enabled = false;
             }
             else
-                splitFilePathTextBox.ForeColor = Color.Black;
+                splitOutputPathTextBox.ForeColor = Color.Black;
         }
 
         private void splitFileTextBox_DragEnter(object sender, DragEventArgs e)
@@ -62,22 +62,22 @@ namespace FileSplitter
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-                splitFileTextBox.Text = files[0];
+                splitInputFileTextBox.Text = files[0];
             }
         }
 
         private void splitButton_Click(object sender, EventArgs e)
         {
-            byte[] file = File.ReadAllBytes(splitFileTextBox.Text);
+            byte[] file = File.ReadAllBytes(splitInputFileTextBox.Text);
             long fragment_size = (int)fragmentSizeNumericUpDown.Value;
             for (int i = 3; i > fragmentSizeUnitComboBox.SelectedIndex; i--)
                 fragment_size *= 1024;
             Fragment[] series = Fragment.MakeSeries(file, fragment_size);
 
-            Directory.CreateDirectory(splitFilePathTextBox.Text);
-            string fragment_base_filename = Path.GetFileName(splitFileTextBox.Text);
+            Directory.CreateDirectory(splitOutputPathTextBox.Text);
+            string fragment_base_filename = Path.GetFileName(splitInputFileTextBox.Text);
             for (int i = 0; i < series.Length; i++)
-                File.WriteAllBytes($"{splitFilePathTextBox.Text}\\{fragment_base_filename}_{i}.sff", series[i].Serialise());
+                File.WriteAllBytes($"{splitOutputPathTextBox.Text}\\{fragment_base_filename}_{i}.sff", series[i].Serialise());
             MessageBox.Show("File split complete!");
         }
 
@@ -166,7 +166,7 @@ namespace FileSplitter
             {
                 string folder = splitFolderBrowserDialog.SelectedPath;
                 if (Directory.GetFileSystemEntries(folder).Length == 0 || MessageBox.Show("It's reccommended you save a split file to an empty folder, but this folder has contents in it.\nSave to here anyway?", "Not empty folder", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    splitFilePathTextBox.Text = folder;
+                    splitOutputPathTextBox.Text = folder;
             }
         }
     }
