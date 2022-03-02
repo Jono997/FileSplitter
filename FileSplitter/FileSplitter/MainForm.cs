@@ -69,7 +69,7 @@ namespace FileSplitter
         private void splitButton_Click(object sender, EventArgs e)
         {
             byte[] file = File.ReadAllBytes(splitInputFileTextBox.Text);
-            long fragment_size = (int)fragmentSizeNumericUpDown.Value;
+            long fragment_size = (int)fragmentQuantityNumericUpDown.Value;
             for (int i = 3; i > fragmentSizeUnitComboBox.SelectedIndex; i--)
                 fragment_size *= 1024;
             Fragment[] series = Fragment.MakeSeries(file, fragment_size);
@@ -167,6 +167,22 @@ namespace FileSplitter
                 string folder = splitFolderBrowserDialog.SelectedPath;
                 if (Directory.GetFileSystemEntries(folder).Length == 0 || MessageBox.Show("It's reccommended you save a split file to an empty folder, but this folder has contents in it.\nSave to here anyway?", "Not empty folder", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     splitOutputPathTextBox.Text = folder;
+            }
+        }
+
+        private void splitByCountRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (splitByCountRadioButton.Checked)
+            {
+                fragmentQuantityLabel.Text = "Fragment amount:";
+                fragmentQuantityNumericUpDown.Width += fragmentQuantityNumericUpDown.Margin.Right + fragmentSizeUnitComboBox.Margin.Left + fragmentSizeUnitComboBox.Width;
+                fragmentSizeUnitComboBox.Visible = false;
+            }
+            else
+            {
+                fragmentQuantityLabel.Text = "Fragment size:";
+                fragmentQuantityNumericUpDown.Width -= fragmentQuantityNumericUpDown.Margin.Right + fragmentSizeUnitComboBox.Margin.Left + fragmentSizeUnitComboBox.Width;
+                fragmentSizeUnitComboBox.Visible = true;
             }
         }
     }

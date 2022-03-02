@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.splitOutputPathTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.fragmentSizeUnitComboBox = new System.Windows.Forms.ComboBox();
-            this.fragmentSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.fragmentQuantityNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.fragmentQuantityLabel = new System.Windows.Forms.Label();
             this.splitButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.splitInputFileTextBox = new System.Windows.Forms.TextBox();
@@ -48,14 +52,16 @@
             this.splitOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mergeOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mergeSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.label3 = new System.Windows.Forms.Label();
-            this.splitOutputPathTextBox = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.splitFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.splitBySizeRadioButton = new System.Windows.Forms.RadioButton();
+            this.splitByCountRadioButton = new System.Windows.Forms.RadioButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fragmentSizeNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fragmentQuantityNumericUpDown)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -71,12 +77,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.splitOutputPathTextBox);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.fragmentSizeUnitComboBox);
-            this.tabPage1.Controls.Add(this.fragmentSizeNumericUpDown);
-            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.fragmentQuantityNumericUpDown);
+            this.tabPage1.Controls.Add(this.fragmentQuantityLabel);
             this.tabPage1.Controls.Add(this.splitButton);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.splitInputFileTextBox);
@@ -89,6 +96,37 @@
             this.tabPage1.Text = "Split";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(404, 138);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // splitOutputPathTextBox
+            // 
+            this.splitOutputPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitOutputPathTextBox.Location = new System.Drawing.Point(89, 140);
+            this.splitOutputPathTextBox.Name = "splitOutputPathTextBox";
+            this.splitOutputPathTextBox.Size = new System.Drawing.Size(309, 20);
+            this.splitOutputPathTextBox.TabIndex = 9;
+            this.splitOutputPathTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 143);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Save location:";
+            // 
             // fragmentSizeUnitComboBox
             // 
             this.fragmentSizeUnitComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -98,44 +136,44 @@
             "MB",
             "KB",
             "B"});
-            this.fragmentSizeUnitComboBox.Location = new System.Drawing.Point(385, 34);
+            this.fragmentSizeUnitComboBox.Location = new System.Drawing.Point(385, 87);
             this.fragmentSizeUnitComboBox.Name = "fragmentSizeUnitComboBox";
             this.fragmentSizeUnitComboBox.Size = new System.Drawing.Size(44, 21);
             this.fragmentSizeUnitComboBox.TabIndex = 6;
             // 
-            // fragmentSizeNumericUpDown
+            // fragmentQuantityNumericUpDown
             // 
-            this.fragmentSizeNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.fragmentQuantityNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fragmentSizeNumericUpDown.Location = new System.Drawing.Point(89, 34);
-            this.fragmentSizeNumericUpDown.Maximum = new decimal(new int[] {
+            this.fragmentQuantityNumericUpDown.Location = new System.Drawing.Point(106, 87);
+            this.fragmentQuantityNumericUpDown.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
-            this.fragmentSizeNumericUpDown.Minimum = new decimal(new int[] {
+            this.fragmentQuantityNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.fragmentSizeNumericUpDown.Name = "fragmentSizeNumericUpDown";
-            this.fragmentSizeNumericUpDown.Size = new System.Drawing.Size(290, 20);
-            this.fragmentSizeNumericUpDown.TabIndex = 5;
-            this.fragmentSizeNumericUpDown.ThousandsSeparator = true;
-            this.fragmentSizeNumericUpDown.Value = new decimal(new int[] {
+            this.fragmentQuantityNumericUpDown.Name = "fragmentQuantityNumericUpDown";
+            this.fragmentQuantityNumericUpDown.Size = new System.Drawing.Size(273, 20);
+            this.fragmentQuantityNumericUpDown.TabIndex = 5;
+            this.fragmentQuantityNumericUpDown.ThousandsSeparator = true;
+            this.fragmentQuantityNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // label2
+            // fragmentQuantityLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Fragment size:";
+            this.fragmentQuantityLabel.AutoSize = true;
+            this.fragmentQuantityLabel.Location = new System.Drawing.Point(8, 89);
+            this.fragmentQuantityLabel.Name = "fragmentQuantityLabel";
+            this.fragmentQuantityLabel.Size = new System.Drawing.Size(75, 13);
+            this.fragmentQuantityLabel.TabIndex = 4;
+            this.fragmentQuantityLabel.Text = "Fragment size:";
             // 
             // splitButton
             // 
@@ -283,36 +321,42 @@
             this.mergeOpenFileDialog.DefaultExt = "sff";
             this.mergeOpenFileDialog.Filter = "Split file fragments|*_*.sff|All files|*.*";
             // 
-            // label3
+            // groupBox1
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 143);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Save location:";
-            // 
-            // splitOutputPathTextBox
-            // 
-            this.splitOutputPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitOutputPathTextBox.Location = new System.Drawing.Point(89, 140);
-            this.splitOutputPathTextBox.Name = "splitOutputPathTextBox";
-            this.splitOutputPathTextBox.Size = new System.Drawing.Size(309, 20);
-            this.splitOutputPathTextBox.TabIndex = 9;
-            this.splitOutputPathTextBox.TextChanged += new System.EventHandler(this.splitFileTextBox_TextChanged);
+            this.groupBox1.Controls.Add(this.splitByCountRadioButton);
+            this.groupBox1.Controls.Add(this.splitBySizeRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(6, 34);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(423, 47);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
             // 
-            // button3
+            // splitBySizeRadioButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(404, 138);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.splitBySizeRadioButton.AutoSize = true;
+            this.splitBySizeRadioButton.Checked = true;
+            this.splitBySizeRadioButton.Location = new System.Drawing.Point(5, 19);
+            this.splitBySizeRadioButton.Name = "splitBySizeRadioButton";
+            this.splitBySizeRadioButton.Size = new System.Drawing.Size(106, 17);
+            this.splitBySizeRadioButton.TabIndex = 0;
+            this.splitBySizeRadioButton.TabStop = true;
+            this.splitBySizeRadioButton.Text = "Set fragment size";
+            this.splitBySizeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // splitByCountRadioButton
+            // 
+            this.splitByCountRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitByCountRadioButton.AutoSize = true;
+            this.splitByCountRadioButton.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.splitByCountRadioButton.Location = new System.Drawing.Point(294, 19);
+            this.splitByCountRadioButton.Name = "splitByCountRadioButton";
+            this.splitByCountRadioButton.Size = new System.Drawing.Size(123, 17);
+            this.splitByCountRadioButton.TabIndex = 1;
+            this.splitByCountRadioButton.Text = "Set fragment amount";
+            this.splitByCountRadioButton.UseVisualStyleBackColor = true;
+            this.splitByCountRadioButton.CheckedChanged += new System.EventHandler(this.splitByCountRadioButton_CheckedChanged);
             // 
             // MainForm
             // 
@@ -325,9 +369,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fragmentSizeNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fragmentQuantityNumericUpDown)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -343,8 +389,8 @@
         private System.Windows.Forms.OpenFileDialog splitOpenFileDialog;
         private System.Windows.Forms.Button splitButton;
         private System.Windows.Forms.ComboBox fragmentSizeUnitComboBox;
-        private System.Windows.Forms.NumericUpDown fragmentSizeNumericUpDown;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown fragmentQuantityNumericUpDown;
+        private System.Windows.Forms.Label fragmentQuantityLabel;
         private System.Windows.Forms.Button mergeButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListBox fragmentListBox;
@@ -358,6 +404,10 @@
         private System.Windows.Forms.TextBox splitOutputPathTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FolderBrowserDialog splitFolderBrowserDialog;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton splitByCountRadioButton;
+        private System.Windows.Forms.RadioButton splitBySizeRadioButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
