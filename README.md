@@ -14,8 +14,10 @@ After that, select where to save the file and click the `Merge` button.
 * An option to split a file into a set number of fragments
 * Usability from the command line
 * Encrypting files/fragment payloads (both symmetric and asymmetric)
+* Allow for merging fragment series by double clicking on a fragment
+* Add an option to associate .sff files with FileSplitter
 
 ### Other planned changes
 * Make Join tab the default [Done]
 * Make fragment series detecting more robust [Done]
-* Downgrade to the lowest .NET Framework version possible [Abandoned]
+* Port to .NET 5 (save for when all other features are done)
