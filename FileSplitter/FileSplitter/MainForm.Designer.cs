@@ -48,6 +48,9 @@
             this.splitOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mergeOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label3 = new System.Windows.Forms.Label();
+            this.splitFilePathTextBox = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fragmentSizeNumericUpDown)).BeginInit();
@@ -67,6 +70,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.splitFilePathTextBox);
+            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.fragmentSizeUnitComboBox);
             this.tabPage1.Controls.Add(this.fragmentSizeNumericUpDown);
             this.tabPage1.Controls.Add(this.label2);
@@ -266,6 +272,35 @@
             this.mergeOpenFileDialog.DefaultExt = "sff";
             this.mergeOpenFileDialog.Filter = "Split file fragments|*_*.sff|All files|*.*";
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 143);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Save location:";
+            // 
+            // splitFilePathTextBox
+            // 
+            this.splitFilePathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitFilePathTextBox.Location = new System.Drawing.Point(89, 140);
+            this.splitFilePathTextBox.Name = "splitFilePathTextBox";
+            this.splitFilePathTextBox.Size = new System.Drawing.Size(309, 20);
+            this.splitFilePathTextBox.TabIndex = 9;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(404, 138);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,6 +341,9 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label joinInstructionLabel;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox splitFilePathTextBox;
+        private System.Windows.Forms.Label label3;
     }
 }
 
