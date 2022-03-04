@@ -69,10 +69,21 @@ namespace FileSplitter
         private void splitButton_Click(object sender, EventArgs e)
         {
             byte[] file = File.ReadAllBytes(splitInputFileTextBox.Text);
-            long fragment_size = (int)fragmentQuantityNumericUpDown.Value;
-            for (int i = 3; i > fragmentSizeUnitComboBox.SelectedIndex; i--)
-                fragment_size *= 1024;
-            Fragment[] series = Fragment.MakeSeries(file, fragment_size);
+
+            Fragment[] series;
+            if (splitBySizeRadioButton.Checked)
+            {
+                long fragment_size = (int)fragmentQuantityNumericUpDown.Value;
+                for (int i = 3; i > fragmentSizeUnitComboBox.SelectedIndex; i--)
+                    fragment_size *= 1024;
+                series = Fragment.MakeSeries(file, fragment_size);
+            }
+            else
+            {
+                long fl_remainder = file.Length % (int)fragmentQuantityNumericUpDown.Value;
+                long fragment_size = (file.Length - fl_remainder) / (int)fragmentQuantityNumericUpDown.Value + (fl_remainder > 0 ? 1 : 0) + Fragment.HEADER_SIZE;
+                series = Fragment.MakeSeries(file, fragment_size);
+            }
 
             Directory.CreateDirectory(splitOutputPathTextBox.Text);
             string fragment_base_filename = Path.GetFileName(splitInputFileTextBox.Text);

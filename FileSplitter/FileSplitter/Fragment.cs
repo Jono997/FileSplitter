@@ -43,7 +43,7 @@ namespace FileSplitter
         internal byte[] Payload { get; private set; }
 
         const byte CURRENT_VERSION = 0;
-        const int HEADER_SIZE = 0x91;
+        internal const int HEADER_SIZE = 0x91;
 
         private static readonly SHA512 SHA = SHA512.Create();
 
