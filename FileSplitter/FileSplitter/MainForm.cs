@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace FileSplitter
 {
@@ -94,15 +93,7 @@ namespace FileSplitter
 
         private void ScanFile(string path)
         {
-            Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
-            string filename = path.Split('\\').Last();
-            Match m = regex.Match(filename);
-            if (m.Success)
-                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path)))
-                    if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
-                        fragmentListBox.Items.Add(file);
-            else
-                fragmentListBox.Items.Add(path);
+            fragmentListBox.Items.AddRange(Program.SearchForFragments(path));
             joinInstructionLabel.Visible = fragmentListBox.Items.Count == 0;
             mergeButton.Enabled = !joinInstructionLabel.Visible && File.Exists(mergeFilePathTextBox.Text);
         }

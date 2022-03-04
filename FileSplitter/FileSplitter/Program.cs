@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace FileSplitter
 {
@@ -22,6 +24,28 @@ namespace FileSplitter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+        }
+
+        /// <summary>
+        /// Searches the directory a fragment is in for other fragments in the series
+        /// </summary>
+        /// <param name="starting_fragment_path">The path to a fragment</param>
+        /// <returns></returns>
+        internal static string[] SearchForFragments(string starting_fragment_path)
+        {
+            List<string> retval = new List<string>();
+            Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
+            string filename = starting_fragment_path.Split('\\').Last();
+            Match m = regex.Match(filename);
+            if (m.Success)
+            {
+                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(starting_fragment_path)))
+                    if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
+                        retval.Add(file);
+            }
+            else
+                retval.Add(starting_fragment_path);
+            return retval.ToArray();
         }
 
         #region Tests
