@@ -67,12 +67,13 @@ namespace FileSplitter
         internal byte[] Serialise()
         {
             byte[] retVal = new byte[HEADER_SIZE + Payload.Length];
-            BitConverter.GetBytes(SeriesID).CopyTo(retVal, 0);
-            BitConverter.GetBytes(Position).CopyTo(retVal, 0x08);
-            BitConverter.GetBytes(FragmentCount).CopyTo(retVal, 0x0C);
-            FragmentDigest.CopyTo(retVal, 0x10);
-            SeriesDigest.CopyTo(retVal, 0x50);
-            Payload.CopyTo(retVal, 0x90);
+            retVal[0] = CURRENT_VERSION;
+            BitConverter.GetBytes(SeriesID).CopyTo(retVal, 1);
+            BitConverter.GetBytes(Position).CopyTo(retVal, 0x09);
+            BitConverter.GetBytes(FragmentCount).CopyTo(retVal, 0x0D);
+            FragmentDigest.CopyTo(retVal, 0x11);
+            SeriesDigest.CopyTo(retVal, 0x51);
+            Payload.CopyTo(retVal, 0x91);
             return retVal;
         }
 
