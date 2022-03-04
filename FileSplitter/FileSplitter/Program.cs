@@ -14,7 +14,7 @@ namespace FileSplitter
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -23,7 +23,29 @@ namespace FileSplitter
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            if (args.Length == 0)
+                Application.Run(new MainForm());
+            else
+            {
+                string file = args[0];
+                string[] fragment_paths = SearchForFragments(file);
+                try
+                {
+                    Fragment[] series = new Fragment[fragment_paths.Length];
+                    for (int i = 0; i < series.Length; i++)
+                        series[i] = Fragment.Deserialise(File.ReadAllBytes(fragment_paths[i]));
+
+                    byte[] payload = Fragment.GetFileFromSeries(series);
+                    SaveFileDialog saveDialog = new SaveFileDialog();
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                        File.WriteAllBytes(saveDialog.FileName, payload);
+                }
+                catch (InvalidFragmentSeriesException)
+                {
+                    MessageBox.Show("The fragment series appears to be invalid. Please make sure no fragments are missing or not meant to be there.", "Invalid fragment series", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Run(new MainForm(fragment_paths));
+                }
+            }
         }
 
         /// <summary>

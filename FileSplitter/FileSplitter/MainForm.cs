@@ -20,6 +20,12 @@ namespace FileSplitter
             fragmentSizeUnitComboBox.SelectedIndex = 1;
         }
 
+        public MainForm(string[] series) : this()
+        {
+            fragmentListBox.Items.AddRange(series);
+            joinInstructionLabel.Visible = false;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (splitOpenFileDialog.ShowDialog() == DialogResult.OK)
