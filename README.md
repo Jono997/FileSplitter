@@ -11,7 +11,7 @@ After that, select where to save the file and click the `Merge` button.
 
 ## Planned features
 * An option to specify where to save a fragment series [Done]
-* An option to split a file into a set number of fragments
+* An option to split a file into a set number of fragments [Done]
 * Usability from the command line
 * Encrypting files/fragment payloads (both symmetric and asymmetric)
 * Allow for merging fragment series by double clicking on a fragment
