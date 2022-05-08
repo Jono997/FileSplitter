@@ -5,11 +5,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
+using Microsoft.Win32;
+using ATEM;
 
 namespace FileSplitter
 {
     internal static class Program
     {
+        internal static string REGISTRY_KEY = @"HKEY_CURRENT_USER\SOFTWARE\Jono99";
+        internal static string REGISTRY_WATCH_FOR_ASSOCATION = "WatchSffAssociation";
+        internal static string REGISTRY_SHOW_ASSOCIATION_DIALOG = "ShowAssociationDialog";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -56,18 +62,26 @@ namespace FileSplitter
         internal static string[] SearchForFragments(string starting_fragment_path)
         {
             List<string> retval = new List<string>();
-            Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
-            string filename = starting_fragment_path.Split('\\').Last();
+            Regex regex = new Regex(@"^(ffs\..*?)\d+(.+)");
+            string filename = starting_fragment_path.Split('\\').Last().Reverse();
+
             Match m = regex.Match(filename);
             if (m.Success)
             {
+                string file_start = m.Groups[2].Value.Reverse();
+                string file_end = m.Groups[1].Value.Reverse();
                 foreach (string file in Directory.GetFiles(Path.GetDirectoryName(starting_fragment_path)))
-                    if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
+                    if (file.Contains(file_start) && file.EndsWith(file_end))
                         retval.Add(file);
             }
             else
                 retval.Add(starting_fragment_path);
             return retval.ToArray();
+        }
+
+        internal static void AssociateSFF()
+        {
+
         }
 
         #region Tests
