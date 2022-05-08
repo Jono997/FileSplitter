@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using ATEM;
 
 namespace FileSplitter
 {
@@ -94,13 +95,22 @@ namespace FileSplitter
 
         private void ScanFile(string path)
         {
+            /*
             Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
             string filename = path.Split('\\').Last();
+            */
+            Regex regex = new Regex(@"^(ffs\..*?)\d+(.+)");
+            string filename = path.Split('\\').Last().Reverse();
+
             Match m = regex.Match(filename);
             if (m.Success)
+            {
+                string file_start = m.Groups[2].Value.Reverse();
+                string file_end = m.Groups[1].Value.Reverse();
                 foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path)))
-                    if (file.Contains(m.Groups[1].Value) && file.EndsWith(m.Groups[2].Value))
+                    if (file.Contains(file_start) && file.EndsWith(file_end))
                         fragmentListBox.Items.Add(file);
+            }
             else
                 fragmentListBox.Items.Add(path);
             joinInstructionLabel.Visible = fragmentListBox.Items.Count == 0;
