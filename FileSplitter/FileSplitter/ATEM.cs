@@ -316,6 +316,16 @@ namespace ATEM
             return str.Split(separator, count, StringSplitOptions.None);
         }
         #endregion
+
+        #region Reverse
+        public static string Reverse(this string str)
+        {
+            string retVal = "";
+            for (int i = str.Length - 1; i >= 0; i--)
+                retVal += str[i];
+            return retVal;
+        }
+        #endregion
         #endregion
 
         #region Int methods
