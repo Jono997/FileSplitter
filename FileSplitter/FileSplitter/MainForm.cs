@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Text.RegularExpressions;
-using ATEM;
+using Microsoft.Win32;
 
 namespace FileSplitter
 {
@@ -20,6 +19,36 @@ namespace FileSplitter
             InitializeComponent();
             tabControl1.SelectTab(1);
             fragmentSizeUnitComboBox.SelectedIndex = 1;
+            if ((int)Registry.GetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 1) == 1)
+            {
+                switch (MessageBox.Show("Associate .sff files with FileSplitter? Doing so will allow you to merge fragment series by double clicking on them", "Associate .sff files?", MessageBoxButtons.YesNoCancel))
+                {
+                    case DialogResult.Yes:
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process()
+                        {
+                            StartInfo = new System.Diagnostics.ProcessStartInfo("AssociateSFF.exe")
+                        };
+                        proc.Start();
+                        proc.WaitForExit();
+                        if ((int)Registry.GetValue(Program.REGISTRY_KEY, AssociateSFF.Program.REGISTRY_ASSOCIATION_SUCCESS, 0) == 1)
+                        {
+                            Registry.SetValue(Program.REGISTRY_KEY, AssociateSFF.Program.REGISTRY_ASSOCIATION_SUCCESS, 0);
+                            Registry.SetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 0);
+                        }
+                        else
+                            MessageBox.Show("Something went wrong in the process. Please try again later.", "Associate SFF error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case DialogResult.No:
+                        Registry.SetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 0);
+                        break;
+                }
+            }
+        }
+
+        public MainForm(string[] series) : this()
+        {
+            fragmentListBox.Items.AddRange(series);
+            joinInstructionLabel.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -95,24 +124,7 @@ namespace FileSplitter
 
         private void ScanFile(string path)
         {
-            /*
-            Regex regex = new Regex(@"(.+?)\d+(.*\.sff)$");
-            string filename = path.Split('\\').Last();
-            */
-            Regex regex = new Regex(@"^(ffs\..*?)\d+(.+)");
-            string filename = path.Split('\\').Last().Reverse();
-
-            Match m = regex.Match(filename);
-            if (m.Success)
-            {
-                string file_start = m.Groups[2].Value.Reverse();
-                string file_end = m.Groups[1].Value.Reverse();
-                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path)))
-                    if (file.Contains(file_start) && file.EndsWith(file_end))
-                        fragmentListBox.Items.Add(file);
-            }
-            else
-                fragmentListBox.Items.Add(path);
+            fragmentListBox.Items.AddRange(Program.SearchForFragments(path));
             joinInstructionLabel.Visible = fragmentListBox.Items.Count == 0;
             mergeButton.Enabled = !joinInstructionLabel.Visible && File.Exists(mergeFilePathTextBox.Text);
         }

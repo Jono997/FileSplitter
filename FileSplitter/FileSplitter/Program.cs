@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using System.IO;
+using ATEM;
 
 namespace FileSplitter
 {
     internal static class Program
     {
+        internal const string REGISTRY_KEY = @"HKEY_CURRENT_USER\SOFTWARE\Jono99\FileSplitter";
+        internal const string REGISTRY_SHOW_ASSOCIATION_DIALOG = "ShowAssociationDialog";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -21,9 +27,56 @@ namespace FileSplitter
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            if (args.Length == 0)
+                Application.Run(new MainForm());
+            else
+            {
+                string file = args[0];
+                string[] fragment_paths = SearchForFragments(file);
+                try
+                {
+                    Fragment[] series = new Fragment[fragment_paths.Length];
+                    for (int i = 0; i < series.Length; i++)
+                        series[i] = Fragment.Deserialise(File.ReadAllBytes(fragment_paths[i]));
+
+                    byte[] payload = Fragment.GetFileFromSeries(series);
+                    SaveFileDialog saveDialog = new SaveFileDialog();
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                        File.WriteAllBytes(saveDialog.FileName, payload);
+                }
+                catch (InvalidFragmentSeriesException)
+                {
+                    MessageBox.Show("The fragment series appears to be invalid. Please make sure no fragments are missing or not meant to be there.", "Invalid fragment series", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Run(new MainForm(fragment_paths));
+                }
+            }
         }
 
+        /// <summary>
+        /// Searches the directory a fragment is in for other fragments in the series
+        /// </summary>
+        /// <param name="starting_fragment_path">The path to a fragment</param>
+        /// <returns></returns>
+        internal static string[] SearchForFragments(string starting_fragment_path)
+        {
+            List<string> retval = new List<string>();
+            Regex regex = new Regex(@"^(ffs\..*?)\d+(.+)");
+            string filename = starting_fragment_path.Split('\\').Last().Reverse();
+
+            Match m = regex.Match(filename);
+            if (m.Success)
+            {
+                string file_start = m.Groups[2].Value.Reverse();
+                string file_end = m.Groups[1].Value.Reverse();
+                foreach (string file in Directory.GetFiles(Path.GetDirectoryName(starting_fragment_path)))
+                    if (file.Contains(file_start) && file.EndsWith(file_end))
+                        retval.Add(file);
+            }
+            else
+                retval.Add(starting_fragment_path);
+            return retval.ToArray();
+        }
+        
         #region Tests
         /// <summary>
         /// Test to see if individual Fragment validation is working correctly
