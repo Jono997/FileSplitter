@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using Microsoft.Win32;
 using ATEM;
+using System.Runtime.InteropServices;
 
 namespace FileSplitter
 {
@@ -78,12 +79,7 @@ namespace FileSplitter
                 retval.Add(starting_fragment_path);
             return retval.ToArray();
         }
-
-        internal static void AssociateSFF()
-        {
-
-        }
-
+        
         #region Tests
         /// <summary>
         /// Test to see if individual Fragment validation is working correctly
