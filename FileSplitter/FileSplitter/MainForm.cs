@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Win32;
 
 namespace FileSplitter
 {
@@ -18,7 +19,30 @@ namespace FileSplitter
             InitializeComponent();
             tabControl1.SelectTab(1);
             fragmentSizeUnitComboBox.SelectedIndex = 1;
-            
+            if ((int)Registry.GetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 1) == 1)
+            {
+                switch (MessageBox.Show("Associate .sff files with FileSplitter? Doing so will allow you to merge fragment series by double clicking on them", "Associate .sff files?", MessageBoxButtons.YesNoCancel))
+                {
+                    case DialogResult.Yes:
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process()
+                        {
+                            StartInfo = new System.Diagnostics.ProcessStartInfo("AssociateSFF.exe")
+                        };
+                        proc.Start();
+                        proc.WaitForExit();
+                        if ((int)Registry.GetValue(Program.REGISTRY_KEY, AssociateSFF.Program.REGISTRY_ASSOCIATION_SUCCESS, 0) == 1)
+                        {
+                            Registry.SetValue(Program.REGISTRY_KEY, AssociateSFF.Program.REGISTRY_ASSOCIATION_SUCCESS, 0);
+                            Registry.SetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 0);
+                        }
+                        else
+                            MessageBox.Show("Something went wrong in the process. Please try again later.", "Associate SFF error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case DialogResult.No:
+                        Registry.SetValue(Program.REGISTRY_KEY, Program.REGISTRY_SHOW_ASSOCIATION_DIALOG, 0);
+                        break;
+                }
+            }
         }
 
         public MainForm(string[] series) : this()

@@ -5,17 +5,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
-using Microsoft.Win32;
 using ATEM;
-using System.Runtime.InteropServices;
 
 namespace FileSplitter
 {
     internal static class Program
     {
-        internal static string REGISTRY_KEY = @"HKEY_CURRENT_USER\SOFTWARE\Jono99";
-        internal static string REGISTRY_WATCH_FOR_ASSOCATION = "WatchSffAssociation";
-        internal static string REGISTRY_SHOW_ASSOCIATION_DIALOG = "ShowAssociationDialog";
+        internal const string REGISTRY_KEY = @"HKEY_CURRENT_USER\SOFTWARE\Jono99\FileSplitter";
+        internal const string REGISTRY_SHOW_ASSOCIATION_DIALOG = "ShowAssociationDialog";
 
         /// <summary>
         /// The main entry point for the application.

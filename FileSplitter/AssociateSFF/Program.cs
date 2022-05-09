@@ -9,8 +9,10 @@ using System.IO;
 
 namespace AssociateSFF
 {
-    class Program
+    public static class Program
     {
+        public const string REGISTRY_ASSOCIATION_SUCCESS = "FileAssociationSuccess";
+
         static void Main(string[] args)
         {
             string exe_path = $@"{Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])}\FileSplitter.exe";
@@ -27,6 +29,8 @@ namespace AssociateSFF
                 .SetValue("", "FileSplitter.FileSplitterFragment.1");
 
             SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Jono99\FileSplitter", REGISTRY_ASSOCIATION_SUCCESS, 1);
         }
 
         [DllImport("shell32.dll")]

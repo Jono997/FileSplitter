@@ -4,11 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSplitter", "FileSplitter\FileSplitter.csproj", "{DBB856DF-17BB-4065-8A43-D5A2F3E70496}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78504897-9C9D-4DFC-B1BB-78AA8D23F57E} = {78504897-9C9D-4DFC-B1BB-78AA8D23F57E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssociateSFF", "AssociateSFF\AssociateSFF.csproj", "{78504897-9C9D-4DFC-B1BB-78AA8D23F57E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBB856DF-17BB-4065-8A43-D5A2F3E70496} = {DBB856DF-17BB-4065-8A43-D5A2F3E70496}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
